@@ -172,7 +172,7 @@ examples from Finnish.
 
 This is an inflection table, using the Finnish word “Koira”
 
-::
+.. code-block::
 
    Inflection table 1 that takes words ending in 'a' and outputs an inflection table
 
@@ -184,7 +184,7 @@ This is an inflection table, using the Finnish word “Koira”
 
 And this is another inflection table, using the Finnish word “Hame”.
 
-::
+.. code-block::
 
    Inflection table 2 that takes words ending in 'e' and outputs an inflection table
 
@@ -217,8 +217,7 @@ letter ‘n’ to the end of the word” for any input.
 Smart paradigms
 ^^^^^^^^^^^^^^^
 
-A smart paradigm would not allow “Hame” as input into inflection table
-1.
+A smart paradigm would not allow “Hame” as input into inflection table 1.
 
 Instead, a smart paradigm matches the argument (input) “Hame” with the
 best matching inflection table.
@@ -246,6 +245,7 @@ Declaration of the smart paradigm in ParadigmsTam.gf
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Definition of the smart paradigm in ParadigmsTam.gf
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 .. image:: ../images/Pastedimage20230324133219.png
 
@@ -354,7 +354,7 @@ Definitions
 The mkN definitions could look like the following (this doesn’t follow
 the ParadigmsEng.gf properly, it’s for pedagogical purposes).
 
-::
+.. code-block::
 
    mkN = overload {
      mkN : (flash : Str) -> N = \flash -> lin N (regN flash) ;
