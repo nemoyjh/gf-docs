@@ -1,41 +1,101 @@
-
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical &#8212; GF-docs 1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical &mdash; GF-docs 1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
-    <link rel="prev" title="Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar" href="../gf-implementation-grammar-engineering-1/" />
-   
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    <link rel="prev" title="Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar" href="../gf-implementation-grammar-engineering-1/" /> 
+</head>
 
-  </head><body>
-  
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../" class="icon icon-home"> GF-docs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-getting-started/">Implementing a Resource Grammar Depth-First: First Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-grammar-engineering-1/">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#steps">Steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initial-hypothesis">Initial Hypothesis:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#predicative-and-attributive-adjectives">Predicative and Attributive adjectives</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#putting-predicative-and-attributive-adjectives-into-gf">Putting Predicative and Attributive adjectives into GF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-the-initial-hypothesis">Modifying the Initial Hypothesis:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-a-smart-paradigm-for-tamil-adjectives">Defining a smart paradigm for Tamil Adjectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exporting-the-paradigms-into-the-external-api">Exporting the paradigms into the external API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#appendix-a-explanation-of-smart-paradigms">Appendix A: Explanation of Smart Paradigms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#declaration-of-the-smart-paradigm-in-paradigmstam-gf">Declaration of the smart paradigm in ParadigmsTam.gf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#definition-of-the-smart-paradigm-in-paradigmstam-gf">Definition of the smart paradigm in ParadigmsTam.gf</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-smart-paradigms">Using the smart paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#appendix-b-note-on-the-structure-of-paradigmslang-gf">Appendix B: Note on the structure of ParadigmsLang.gf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#declarations">Declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#definitions">Definitions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          
+        </div>
+      </div>
+    </nav>
 
-          <div class="body" role="main">
-            
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">GF-docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/docs/gf-implementation-grammar-engineering-2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <section id="implementing-a-resource-grammar-stage-2-making-foods-grammar-grammatical">
-<h1>Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical<a class="headerlink" href="#implementing-a-resource-grammar-stage-2-making-foods-grammar-grammatical" title="Permalink to this heading">¶</a></h1>
+<h1>Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical<a class="headerlink" href="#implementing-a-resource-grammar-stage-2-making-foods-grammar-grammatical" title="Permalink to this heading"></a></h1>
 <p>In <a class="reference internal" href="../gf-implementation-grammar-engineering-1/#stage-1"><span class="std std-ref">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</span></a>, we implemented the
 cats and funs required to implement a naive Foods Grammar that outputs
 only strings.</p>
@@ -47,11 +107,11 @@ can print out correct sentences</p>
 <p>For foods grammar we need to work on Predication (this pizza is warm)
 and Modification (this warm pizza).</p>
 <section id="steps">
-<h2>Steps<a class="headerlink" href="#steps" title="Permalink to this heading">¶</a></h2>
+<h2>Steps<a class="headerlink" href="#steps" title="Permalink to this heading"></a></h2>
 <p>First, we work via an initial hypothesis and refine that down. Again, I
 will be using Tamil as an example.</p>
 <section id="initial-hypothesis">
-<h3>Initial Hypothesis:<a class="headerlink" href="#initial-hypothesis" title="Permalink to this heading">¶</a></h3>
+<h3>Initial Hypothesis:<a class="headerlink" href="#initial-hypothesis" title="Permalink to this heading"></a></h3>
 <p>Quicly referring to “A Grammar of Modern Tamil, 1993, Thomas Lehmann”,
 pages 133 and 134, the grammar shows that there’s a ‘simple’ adjective
 and a more complex ‘derived’ adjective.</p>
@@ -60,9 +120,9 @@ categories. In the example below, we use the word “warm”.</p>
 <p>Derived adjectives are adjectives derived from other words, like nouns.
 In the example below, we use the word “beautiful”.</p>
 <section id="predicative-and-attributive-adjectives">
-<h4>Predicative and Attributive adjectives<a class="headerlink" href="#predicative-and-attributive-adjectives" title="Permalink to this heading">¶</a></h4>
+<h4>Predicative and Attributive adjectives<a class="headerlink" href="#predicative-and-attributive-adjectives" title="Permalink to this heading"></a></h4>
 <section id="attributive-adjectives">
-<h5>Attributive adjectives<a class="headerlink" href="#attributive-adjectives" title="Permalink to this heading">¶</a></h5>
+<h5>Attributive adjectives<a class="headerlink" href="#attributive-adjectives" title="Permalink to this heading"></a></h5>
 <p>Attributive adjectives modify a noun. For example,</p>
 <p>“This warm pizza”.</p>
 <p>This is the same in Tamil.</p>
@@ -70,7 +130,7 @@ In the example below, we use the word “beautiful”.</p>
 Warm</p>
 </section>
 <section id="predicative-adjectives">
-<h5>Predicative adjectives<a class="headerlink" href="#predicative-adjectives" title="Permalink to this heading">¶</a></h5>
+<h5>Predicative adjectives<a class="headerlink" href="#predicative-adjectives" title="Permalink to this heading"></a></h5>
 <p>Predicative adjectives are adjectives that describe a noun. For example,</p>
 <p>“This pizza is warm”.</p>
 <p>In Tamil, we might say,</p>
@@ -82,7 +142,7 @@ placed at the end of the word.</p>
 </section>
 </section>
 <section id="putting-predicative-and-attributive-adjectives-into-gf">
-<h3>Putting Predicative and Attributive adjectives into GF<a class="headerlink" href="#putting-predicative-and-attributive-adjectives-into-gf" title="Permalink to this heading">¶</a></h3>
+<h3>Putting Predicative and Attributive adjectives into GF<a class="headerlink" href="#putting-predicative-and-attributive-adjectives-into-gf" title="Permalink to this heading"></a></h3>
 <p>We write a series of params (in ParamLang.gf) and oper (ResLang.gf).</p>
 <p>Param: AType, AForm, Position, Gender</p>
 <p>Oper: table of inflection for warm_A and beautiful_A.</p>
@@ -96,7 +156,7 @@ this screenshot.</p>
 </section>
 </section>
 <section id="modifying-the-initial-hypothesis">
-<h2>Modifying the Initial Hypothesis:<a class="headerlink" href="#modifying-the-initial-hypothesis" title="Permalink to this heading">¶</a></h2>
+<h2>Modifying the Initial Hypothesis:<a class="headerlink" href="#modifying-the-initial-hypothesis" title="Permalink to this heading"></a></h2>
 <p>Notice that Attributive does not inflect on gender.</p>
 <p>Now we reduce the number of params down in ParamLang.gf.</p>
 <img alt="../../_images/Pastedimage20230324113325.png" src="../../_images/Pastedimage20230324113325.png" />
@@ -106,7 +166,7 @@ explanation of what a smart paradigm is, refer to Appendix A of this
 document.</p>
 </section>
 <section id="defining-a-smart-paradigm-for-tamil-adjectives">
-<h2>Defining a smart paradigm for Tamil Adjectives<a class="headerlink" href="#defining-a-smart-paradigm-for-tamil-adjectives" title="Permalink to this heading">¶</a></h2>
+<h2>Defining a smart paradigm for Tamil Adjectives<a class="headerlink" href="#defining-a-smart-paradigm-for-tamil-adjectives" title="Permalink to this heading"></a></h2>
 <p>To define a smart paradigm, we define two things:</p>
 <ol class="arabic simple">
 <li><p>The paradigms for words that follow known rules</p></li>
@@ -139,13 +199,13 @@ Feminine form.</p></li>
 </ol>
 </section>
 <section id="exporting-the-paradigms-into-the-external-api">
-<h2>Exporting the paradigms into the external API<a class="headerlink" href="#exporting-the-paradigms-into-the-external-api" title="Permalink to this heading">¶</a></h2>
+<h2>Exporting the paradigms into the external API<a class="headerlink" href="#exporting-the-paradigms-into-the-external-api" title="Permalink to this heading"></a></h2>
 <p>ParadigmsLang.gf exports the smart paradigms in ResLang.gf into the
 external API.</p>
 <p>In our example, we go to ParadigmsTam.gf.</p>
 </section>
 <section id="appendix-a-explanation-of-smart-paradigms">
-<h2>Appendix A: Explanation of Smart Paradigms<a class="headerlink" href="#appendix-a-explanation-of-smart-paradigms" title="Permalink to this heading">¶</a></h2>
+<h2>Appendix A: Explanation of Smart Paradigms<a class="headerlink" href="#appendix-a-explanation-of-smart-paradigms" title="Permalink to this heading"></a></h2>
 <p>A paradigm is a function from a word to an inflection table.</p>
 <p>Note: At this stage, we are creating the inflection table, meaning that
 we are simply populating the table with the appropriate word forms. This
@@ -196,16 +256,16 @@ external API. See Appendix B below for more information on
 ParadigmsLang.gf</p>
 <p>We need a declaration and a definition.</p>
 <section id="declaration-of-the-smart-paradigm-in-paradigmstam-gf">
-<h3>Declaration of the smart paradigm in ParadigmsTam.gf<a class="headerlink" href="#declaration-of-the-smart-paradigm-in-paradigmstam-gf" title="Permalink to this heading">¶</a></h3>
+<h3>Declaration of the smart paradigm in ParadigmsTam.gf<a class="headerlink" href="#declaration-of-the-smart-paradigm-in-paradigmstam-gf" title="Permalink to this heading"></a></h3>
 <img alt="../../_images/Pastedimage20230324133122.png" src="../../_images/Pastedimage20230324133122.png" />
 </section>
 <section id="definition-of-the-smart-paradigm-in-paradigmstam-gf">
-<h3>Definition of the smart paradigm in ParadigmsTam.gf<a class="headerlink" href="#definition-of-the-smart-paradigm-in-paradigmstam-gf" title="Permalink to this heading">¶</a></h3>
+<h3>Definition of the smart paradigm in ParadigmsTam.gf<a class="headerlink" href="#definition-of-the-smart-paradigm-in-paradigmstam-gf" title="Permalink to this heading"></a></h3>
 <img alt="../../_images/Pastedimage20230324133219.png" src="../../_images/Pastedimage20230324133219.png" />
 </section>
 </section>
 <section id="using-the-smart-paradigms">
-<h2>Using the smart paradigms<a class="headerlink" href="#using-the-smart-paradigms" title="Permalink to this heading">¶</a></h2>
+<h2>Using the smart paradigms<a class="headerlink" href="#using-the-smart-paradigms" title="Permalink to this heading"></a></h2>
 <p>We can now use these smart paradigms when we’re creating other
 categories like Common Nouns (CN) and Adjectival Phrases (AP).</p>
 <p>We will be using Record Syntax in these definitions. Record syntax can
@@ -233,21 +293,21 @@ definition, via two backslashes.</p>
 <p>We then choose the ‘correct’ form via nf and c.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading"></a></h2>
 <p>This concludes our tutorial on making the Foods Grammar more
 grammatically correct compared to part 1.</p>
 <p>We have explored the use of smart paradigms, record syntax, tables, and
 overloading.</p>
 </section>
 <section id="appendix-b-note-on-the-structure-of-paradigmslang-gf">
-<h2>Appendix B: Note on the structure of ParadigmsLang.gf<a class="headerlink" href="#appendix-b-note-on-the-structure-of-paradigmslang-gf" title="Permalink to this heading">¶</a></h2>
+<h2>Appendix B: Note on the structure of ParadigmsLang.gf<a class="headerlink" href="#appendix-b-note-on-the-structure-of-paradigmslang-gf" title="Permalink to this heading"></a></h2>
 <p>ParadigmsLang.gf is the only location where we split the declaration of
 the function and the definition of the function into two different parts
 of the program.</p>
 <p>By convention, declarations are defined above the line ‘–.’, and
 definitions are defined below the line ‘–.’</p>
 <section id="declarations">
-<h3>Declarations<a class="headerlink" href="#declarations" title="Permalink to this heading">¶</a></h3>
+<h3>Declarations<a class="headerlink" href="#declarations" title="Permalink to this heading"></a></h3>
 <p>Declarations are automatically turned into the GF documentation in the
 <a class="reference external" href="http://www.grammaticalframework.org/lib/doc/synopsis/index.html">RGL
 Synopsis</a>,
@@ -279,7 +339,7 @@ begin with (meaning “– example”, which is correct, compared to
 </ol>
 </section>
 <section id="definitions">
-<h3>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">¶</a></h3>
+<h3>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading"></a></h3>
 <p>The mkN definitions could look like the following (this doesn’t follow
 the ParadigmsEng.gf properly, it’s for pedagogical purposes).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkN</span> <span class="o">=</span> <span class="n">overload</span> <span class="p">{</span>
@@ -307,83 +367,33 @@ defined in ResLang.gf.</p></li>
 </section>
 
 
+           </div>
           </div>
-          
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../gf-implementation-grammar-engineering-1/" class="btn btn-neutral float-left" title="Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Nemo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../">GF-docs</a></h1>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-getting-started/">Implementing a Resource Grammar Depth-First: First Steps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-grammar-engineering-1/">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#steps">Steps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#modifying-the-initial-hypothesis">Modifying the Initial Hypothesis:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#defining-a-smart-paradigm-for-tamil-adjectives">Defining a smart paradigm for Tamil Adjectives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exporting-the-paradigms-into-the-external-api">Exporting the paradigms into the external API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#appendix-a-explanation-of-smart-paradigms">Appendix A: Explanation of Smart Paradigms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#using-the-smart-paradigms">Using the smart paradigms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#appendix-b-note-on-the-structure-of-paradigmslang-gf">Appendix B: Note on the structure of ParadigmsLang.gf</a></li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../">Documentation overview</a><ul>
-      <li>Previous: <a href="../gf-implementation-grammar-engineering-1/" title="previous chapter">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search/" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2023, Nemo.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
-      
-      |
-      <a href="../../_sources/docs/gf-implementation-grammar-engineering-2.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
-    
-
-    
-  </body>
+</body>
 </html>
