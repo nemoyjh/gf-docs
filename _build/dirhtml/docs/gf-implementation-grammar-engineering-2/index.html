@@ -7,19 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical &#8212; GF-docs 1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar" href="gf-implementation-grammar-engineering-1.html" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="prev" title="Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar" href="../gf-implementation-grammar-engineering-1/" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -36,7 +36,7 @@
             
   <section id="implementing-a-resource-grammar-stage-2-making-foods-grammar-grammatical">
 <h1>Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical<a class="headerlink" href="#implementing-a-resource-grammar-stage-2-making-foods-grammar-grammatical" title="Permalink to this heading">¶</a></h1>
-<p>In <a class="reference internal" href="gf-implementation-grammar-engineering-1.html#stage-1"><span class="std std-ref">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</span></a>, we implemented the
+<p>In <a class="reference internal" href="../gf-implementation-grammar-engineering-1/#stage-1"><span class="std std-ref">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</span></a>, we implemented the
 cats and funs required to implement a naive Foods Grammar that outputs
 only strings.</p>
 <p>In stage 2, we want to build inflection tables. In Tamil, we want to implement
@@ -91,15 +91,15 @@ attributive adjectives inflect on gender (Masculine and Feminine).</p>
 <p>For this example, we place both param and oper into one file for
 simplicity sake. Note that the param and oper lines were not captured in
 this screenshot.</p>
-<img alt="../_images/Pastedimage20230321122840.png" src="../_images/Pastedimage20230321122840.png" />
-<img alt="../_images/Pastedimage20230321122812.png" src="../_images/Pastedimage20230321122812.png" />
+<img alt="../../_images/Pastedimage20230321122840.png" src="../../_images/Pastedimage20230321122840.png" />
+<img alt="../../_images/Pastedimage20230321122812.png" src="../../_images/Pastedimage20230321122812.png" />
 </section>
 </section>
 <section id="modifying-the-initial-hypothesis">
 <h2>Modifying the Initial Hypothesis:<a class="headerlink" href="#modifying-the-initial-hypothesis" title="Permalink to this heading">¶</a></h2>
 <p>Notice that Attributive does not inflect on gender.</p>
 <p>Now we reduce the number of params down in ParamLang.gf.</p>
-<img alt="../_images/Pastedimage20230324113325.png" src="../_images/Pastedimage20230324113325.png" />
+<img alt="../../_images/Pastedimage20230324113325.png" src="../../_images/Pastedimage20230324113325.png" />
 <p>We also define the adjective and create a smart paradigm.</p>
 <p>This is the first time we define a smart paradigm. If you need an
 explanation of what a smart paradigm is, refer to Appendix A of this
@@ -112,7 +112,7 @@ document.</p>
 <li><p>The paradigms for words that follow known rules</p></li>
 <li><p>The worst-case paradigm for when all other paradigm rules fail</p></li>
 </ol>
-<img alt="../_images/Pastedimage20230324130711.png" src="../_images/Pastedimage20230324130711.png" />
+<img alt="../../_images/Pastedimage20230324130711.png" src="../../_images/Pastedimage20230324130711.png" />
 <ol class="arabic">
 <li><p>In lines 206-210, we define the adjective as a function from an
 Adjectival Form (AForm) to a String. Recall that AForm is defined in
@@ -197,11 +197,11 @@ ParadigmsLang.gf</p>
 <p>We need a declaration and a definition.</p>
 <section id="declaration-of-the-smart-paradigm-in-paradigmstam-gf">
 <h3>Declaration of the smart paradigm in ParadigmsTam.gf<a class="headerlink" href="#declaration-of-the-smart-paradigm-in-paradigmstam-gf" title="Permalink to this heading">¶</a></h3>
-<img alt="../_images/Pastedimage20230324133122.png" src="../_images/Pastedimage20230324133122.png" />
+<img alt="../../_images/Pastedimage20230324133122.png" src="../../_images/Pastedimage20230324133122.png" />
 </section>
 <section id="definition-of-the-smart-paradigm-in-paradigmstam-gf">
 <h3>Definition of the smart paradigm in ParadigmsTam.gf<a class="headerlink" href="#definition-of-the-smart-paradigm-in-paradigmstam-gf" title="Permalink to this heading">¶</a></h3>
-<img alt="../_images/Pastedimage20230324133219.png" src="../_images/Pastedimage20230324133219.png" />
+<img alt="../../_images/Pastedimage20230324133219.png" src="../../_images/Pastedimage20230324133219.png" />
 </section>
 </section>
 <section id="using-the-smart-paradigms">
@@ -215,7 +215,7 @@ be used to…</p>
 <li><p>Extend a field via creation that doesn’t exist in a category</p></li>
 </ol>
 <p>Take the following function “AdjCN” as an example, found in NounTam.gf</p>
-<img alt="../_images/Pastedimage20230324134927.png" src="../_images/Pastedimage20230324134927.png" />
+<img alt="../../_images/Pastedimage20230324134927.png" src="../../_images/Pastedimage20230324134927.png" />
 <p>This function AdjCN takes two arguments ‘AP’ and “CN’ and outputs a
 ‘CN’.</p>
 <p>(As an aside, this type of function is an endofunction as its output is
@@ -252,7 +252,7 @@ definitions are defined below the line ‘–.’</p>
 <a class="reference external" href="http://www.grammaticalframework.org/lib/doc/synopsis/index.html">RGL
 Synopsis</a>,
 like the example below.</p>
-<img alt="../_images/Pastedimage20230324133903.png" src="../_images/Pastedimage20230324133903.png" />
+<img alt="../../_images/Pastedimage20230324133903.png" src="../../_images/Pastedimage20230324133903.png" />
 <p>Focus on the mkN functions. This mkN function is overloaded. The code
 for these mkN definitions would look something like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkN</span> <span class="p">:</span> <span class="n">overload</span> <span class="p">{</span>
@@ -313,7 +313,7 @@ defined in ResLang.gf.</p></li>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">GF-docs</a></h1>
+<h1 class="logo"><a href="../../">GF-docs</a></h1>
 
 
 
@@ -325,8 +325,8 @@ defined in ResLang.gf.</p></li>
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="gf-implementation-getting-started.html">Implementing a Resource Grammar Depth-First: First Steps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gf-implementation-grammar-engineering-1.html">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-getting-started/">Implementing a Resource Grammar Depth-First: First Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-grammar-engineering-1/">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#steps">Steps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#modifying-the-initial-hypothesis">Modifying the Initial Hypothesis:</a></li>
@@ -343,15 +343,15 @@ defined in ResLang.gf.</p></li>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="gf-implementation-grammar-engineering-1.html" title="previous chapter">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
+  <li><a href="../../">Documentation overview</a><ul>
+      <li>Previous: <a href="../gf-implementation-grammar-engineering-1/" title="previous chapter">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search/" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
@@ -378,7 +378,7 @@ defined in ResLang.gf.</p></li>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
-      <a href="../_sources/docs/gf-implementation-grammar-engineering-2.rst.txt"
+      <a href="../../_sources/docs/gf-implementation-grammar-engineering-2.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

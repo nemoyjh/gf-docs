@@ -7,20 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar &#8212; GF-docs 1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical" href="gf-implementation-grammar-engineering-2.html" />
-    <link rel="prev" title="Implementing a Resource Grammar Depth-First: First Steps" href="gf-implementation-getting-started.html" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical" href="../gf-implementation-grammar-engineering-2/" />
+    <link rel="prev" title="Implementing a Resource Grammar Depth-First: First Steps" href="../gf-implementation-getting-started/" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -56,7 +56,7 @@ sentence and the example sentence given below, “She is very old”.</p>
 <p>In our case we have to implement PredVP, UseComp, and CompAP. You should
 start from the innermost function, in our case, CompAP, and work your
 way outwards.</p>
-<img alt="../_images/Pastedimage20230113105118.png" src="../_images/Pastedimage20230113105118.png" />
+<img alt="../../_images/Pastedimage20230113105118.png" src="../../_images/Pastedimage20230113105118.png" />
 <p>We need to implement AP for CompAP, and to implement AP, we need the
 category A and the function PositA that takes an A and outputs an AP. AP
 stands for Adjectival Phrase, and A stands for Adjective. PositA stands
@@ -65,13 +65,13 @@ stands for “Comparative Adjective”, something like “better”.</p>
 <p>The following image shows what we need to implement and the types of the
 functions. We need to implement the cats A, AP, Comp, and VP and the
 funs big_A, PositA, CompAP, and UseComp.</p>
-<img alt="../_images/Pastedimage20230113130922.png" src="../_images/Pastedimage20230113130922.png" />
+<img alt="../../_images/Pastedimage20230113130922.png" src="../../_images/Pastedimage20230113130922.png" />
 <p>The following screenshot is not an output of anything from Grammatical
 Framework, it was created for pedagogical purposes.</p>
 <p>Working our way upwards, big_A implements the word “big” in your
 language, PositA takes an A and outputs an AP, CompAP takes AP and
 outputs a Comp, and UseComp takes Comp and outputs a VP.</p>
-<img alt="../_images/Pastedimage20230113131403.png" src="../_images/Pastedimage20230113131403.png" />
+<img alt="../../_images/Pastedimage20230113131403.png" src="../../_images/Pastedimage20230113131403.png" />
 <p>STAGE 1: GET THE GRAMMAR TO PRINT UNGRAMMATICAL SENTENCES</p>
 <section id="first-steps-implementing-a-and-ap-naively">
 <h2>First Steps: Implementing A and AP naively<a class="headerlink" href="#first-steps-implementing-a-and-ap-naively" title="Permalink to this heading">¶</a></h2>
@@ -82,9 +82,9 @@ workin on, e.g. CatTam.gf for Tamil. Based on convention, these
 lincats will point to ResLang.gf, like how AP below points to ResTam.</p></li>
 </ol>
 <p>For the category A, we have:</p>
-<img alt="../_images/Pastedimage20230113124503.png" src="../_images/Pastedimage20230113124503.png" />
+<img alt="../../_images/Pastedimage20230113124503.png" src="../../_images/Pastedimage20230113124503.png" />
 <p>And for the category AP, we have:</p>
-<img alt="../_images/Pastedimage20230113105535.png" src="../_images/Pastedimage20230113105535.png" />
+<img alt="../../_images/Pastedimage20230113105535.png" src="../../_images/Pastedimage20230113105535.png" />
 <ol class="arabic" start="2">
 <li><p>Go to ResLang.gf and search for the oper found after the dot. In this
 case, we need to search for the oper “AdjPhrase” and “Adjective”. We
@@ -98,7 +98,7 @@ use the module Prelude’s built in “SS” oper.</p>
 Adjective.</p>
 </li>
 </ol>
-<img alt="../_images/Pastedimage20230113110136.png" src="../_images/Pastedimage20230113110136.png" />
+<img alt="../../_images/Pastedimage20230113110136.png" src="../../_images/Pastedimage20230113110136.png" />
 <ol class="arabic" start="3">
 <li><p>We also need an internal mkAdj oper, meaning an oper that is not
 exported for external users of the resource grammar, that will
@@ -113,7 +113,7 @@ the equivalent of the 2 lines below that.</p>
 inflection table. This only assumes a single string.</p>
 </li>
 </ol>
-<img alt="../_images/Pastedimage20230113111726.png" src="../_images/Pastedimage20230113111726.png" />
+<img alt="../../_images/Pastedimage20230113111726.png" src="../../_images/Pastedimage20230113111726.png" />
 <p>Note that mkAdj is an internal oper, meaning it’s an internal oper that
 is not exported. The ParadigmsLang.gf is for the API and is used in
 application grammars.</p>
@@ -129,7 +129,7 @@ module</a>
 implement some words! Go to LexiconLang.gf and implement some words.
 For an example in Tamil:</p></li>
 </ol>
-<img alt="../_images/Pastedimage20230113113708.png" src="../_images/Pastedimage20230113113708.png" />
+<img alt="../../_images/Pastedimage20230113113708.png" src="../../_images/Pastedimage20230113113708.png" />
 <ol class="arabic simple" start="5">
 <li><p>Test that the word linearises. You can use the following commands in
 terminal. The first command opens the gf shell (remember to replace
@@ -146,14 +146,14 @@ following in terminal.</p>
 </pre></div>
 </div>
 <p>A successful output looks similar to the following screenshot:</p>
-<img alt="../_images/Pastedimage20230113130103.png" src="../_images/Pastedimage20230113130103.png" />
+<img alt="../../_images/Pastedimage20230113130103.png" src="../../_images/Pastedimage20230113130103.png" />
 <p>Where “periya” is the word for “big” in Tamil.</p>
 </section>
 <section id="another-example-implementing-posita-naively">
 <h2>Another Example: Implementing PositA naively<a class="headerlink" href="#another-example-implementing-posita-naively" title="Permalink to this heading">¶</a></h2>
 <p>Now that we have implemented A and AP, we need to implement “PositA”,
 according to the right-most function of the abstract syntax tree below.</p>
-<img alt="../_images/Pastedimage20230113123753.png" src="../_images/Pastedimage20230113123753.png" />
+<img alt="../../_images/Pastedimage20230113123753.png" src="../../_images/Pastedimage20230113123753.png" />
 <ol class="arabic simple">
 <li><p>PositA is not a category, it is a function that takes A and outputs a Positive Adjective. We first change our working folder in terminal from gf-rgl to gf-rgl/src/Lang, in this case, gf-rgl/src/tamil. Then we grep for PositA in all gf files in src/tamil.</p></li>
 </ol>
@@ -161,12 +161,12 @@ according to the right-most function of the abstract syntax tree below.</p>
 </pre></div>
 </div>
 <p>We see that PositA is used in several files:</p>
-<img alt="../_images/Pastedimage20230113125413.png" src="../_images/Pastedimage20230113125413.png" />
+<img alt="../../_images/Pastedimage20230113125413.png" src="../../_images/Pastedimage20230113125413.png" />
 <p>It seems the file where PositA “lives” is in AdjectiveLang.gf. We go to
 AdjectiveLang.gf and implement PositA naively, taking the adjective
 string and outputting the adjective itself. There is UseA2, but we don’t
 need that function implemented at this stage.</p>
-<img alt="../_images/Pastedimage20230113125540.png" src="../_images/Pastedimage20230113125540.png" />
+<img alt="../../_images/Pastedimage20230113125540.png" src="../../_images/Pastedimage20230113125540.png" />
 <p>We can test that we have implemented PositA directly through the
 following commands, similar to step 5 of stage 1.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gf LangLang.gf
@@ -178,7 +178,7 @@ following commands, similar to step 5 of stage 1.</p>
 </pre></div>
 </div>
 <p>A successful output looks similar to the following screenshot:</p>
-<img alt="../_images/Pastedimage20230113130017.png" src="../_images/Pastedimage20230113130017.png" />
+<img alt="../../_images/Pastedimage20230113130017.png" src="../../_images/Pastedimage20230113130017.png" />
 <p>Where “periya” is the word for “big” in Tamil.</p>
 </section>
 <section id="concatenation-of-two-sub-trees-implementing-naive-predvp">
@@ -190,7 +190,7 @@ functions, we will need to implement PredVP, which has the type Cl, or
 “Clause”.</p>
 <p>These steps are non-trivial because PredVP takes two sub-trees and
 concatenates them into one tree.</p>
-<img alt="../_images/Pastedimage20230113132018.png" src="../_images/Pastedimage20230113132018.png" />
+<img alt="../../_images/Pastedimage20230113132018.png" src="../../_images/Pastedimage20230113132018.png" />
 <p>We first implement the Clause category in CatLang.gf following the
 instructions above. Then we implement PredVP.</p>
 <p>PredVP takes a Noun Phrase (NP) and a Verb Phrase (VP) and concatenates
@@ -200,14 +200,14 @@ them together. Recall that at this stage, NP and VP are strings (either
 function, or in two lines. For more information, see the the <a class="reference external" href="http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc38">GF
 tutorial on operation
 definitions</a>.</p>
-<img alt="../_images/Pastedimage20230113133909.png" src="../_images/Pastedimage20230113133909.png" />
+<img alt="../../_images/Pastedimage20230113133909.png" src="../../_images/Pastedimage20230113133909.png" />
 <p>In SentenceLang.gf, you will need to find/implement PredVP =
 ResTam.predVP.</p>
 <p>Note that the second line in the screenshot is an inline definition of
 PredVP, meaning that you only implement it if you do not want to define
 predVP in ResLang.gf as in the screenshot above, though see the short
 note at the end of this section.</p>
-<img alt="../_images/Pastedimage20230113133313.png" src="../_images/Pastedimage20230113133313.png" />
+<img alt="../../_images/Pastedimage20230113133313.png" src="../../_images/Pastedimage20230113133313.png" />
 <p>You can test that the sentence works through the following command,
 again in gf-rgl/src/lang.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gf LangLang.gf
@@ -215,14 +215,14 @@ again in gf-rgl/src/lang.</p>
 </pre></div>
 </div>
 <p>A successful output looks like this:</p>
-<img alt="../_images/Pastedimage20230113135723.png" src="../_images/Pastedimage20230113135723.png" />
+<img alt="../../_images/Pastedimage20230113135723.png" src="../../_images/Pastedimage20230113135723.png" />
 <p>Which means “this house is big” in Tamil.</p>
 <p>or, in one command,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo &quot;gr PredVP ? (UseComp (CompAP (PositA big_A))) | l -treebank&quot; | gf --run LangTam.gf
 </pre></div>
 </div>
 <p>A successful output looks like the following:</p>
-<img alt="../_images/Pastedimage20230113135821.png" src="../_images/Pastedimage20230113135821.png" />
+<img alt="../../_images/Pastedimage20230113135821.png" src="../../_images/Pastedimage20230113135821.png" />
 <p>Which shows the syntax tree and the linearisation below.</p>
 </section>
 <section id="a-short-note-on-defining-opers-in-reslang-gf">
@@ -245,7 +245,7 @@ in SentenceLang.gf, you won’t be able to use PredVP to define QuestVP.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">GF-docs</a></h1>
+<h1 class="logo"><a href="../../">GF-docs</a></h1>
 
 
 
@@ -257,7 +257,7 @@ in SentenceLang.gf, you won’t be able to use PredVP to define QuestVP.</p>
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="gf-implementation-getting-started.html">Implementing a Resource Grammar Depth-First: First Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-getting-started/">Implementing a Resource Grammar Depth-First: First Steps</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#first-steps-implementing-a-and-ap-naively">First Steps: Implementing A and AP naively</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#another-example-implementing-posita-naively">Another Example: Implementing PositA naively</a></li>
@@ -265,22 +265,22 @@ in SentenceLang.gf, you won’t be able to use PredVP to define QuestVP.</p>
 <li class="toctree-l2"><a class="reference internal" href="#a-short-note-on-defining-opers-in-reslang-gf">A Short Note on Defining Opers in ResLang.gf</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="gf-implementation-grammar-engineering-2.html">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-grammar-engineering-2/">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="gf-implementation-getting-started.html" title="previous chapter">Implementing a Resource Grammar Depth-First: First Steps</a></li>
-      <li>Next: <a href="gf-implementation-grammar-engineering-2.html" title="next chapter">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a></li>
+  <li><a href="../../">Documentation overview</a><ul>
+      <li>Previous: <a href="../gf-implementation-getting-started/" title="previous chapter">Implementing a Resource Grammar Depth-First: First Steps</a></li>
+      <li>Next: <a href="../gf-implementation-grammar-engineering-2/" title="next chapter">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search/" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
@@ -307,7 +307,7 @@ in SentenceLang.gf, you won’t be able to use PredVP to define QuestVP.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
-      <a href="../_sources/docs/gf-implementation-grammar-engineering-1.rst.txt"
+      <a href="../../_sources/docs/gf-implementation-grammar-engineering-1.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

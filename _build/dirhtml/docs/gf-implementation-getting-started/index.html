@@ -7,20 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Implementing a Resource Grammar Depth-First: First Steps &#8212; GF-docs 1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar" href="gf-implementation-grammar-engineering-1.html" />
-    <link rel="prev" title="Welcome to gf-docs’s documentation!" href="../index.html" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar" href="../gf-implementation-grammar-engineering-1/" />
+    <link rel="prev" title="Welcome to gf-docs’s documentation!" href="../../" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -83,28 +83,28 @@
 <li><p>Go to <a class="reference external" href="https://cloud.grammaticalframework.org/">GF Cloud</a>. Choose
 “Minibar”</p></li>
 </ol>
-<img alt="../_images/Pastedimage20230113114722.png" src="../_images/Pastedimage20230113114722.png" />
-<img alt="../_images/Pastedimage20230113123514.png" src="../_images/Pastedimage20230113123514.png" />
+<img alt="../../_images/Pastedimage20230113114722.png" src="../../_images/Pastedimage20230113114722.png" />
+<img alt="../../_images/Pastedimage20230113123514.png" src="../../_images/Pastedimage20230113123514.png" />
 <ol class="arabic simple" start="2">
 <li><p>For the Grammar, choose “LibraryBrowser.pgf”. For the StartCat,
 choose the start category “Utt”.</p></li>
 </ol>
-<img alt="../_images/Pastedimage20230113123613.png" src="../_images/Pastedimage20230113123613.png" />
+<img alt="../../_images/Pastedimage20230113123613.png" src="../../_images/Pastedimage20230113123613.png" />
 <ol class="arabic simple" start="3">
 <li><p>Type in the sentence you want to implement, e.g. “this house is big”.
 You will have to press “Enter” multiple times to input the sentence.
 You should get something like the following:</p></li>
 </ol>
-<img alt="../_images/Pastedimage20230113123656.png" src="../_images/Pastedimage20230113123656.png" />
+<img alt="../../_images/Pastedimage20230113123656.png" src="../../_images/Pastedimage20230113123656.png" />
 <ol class="arabic simple" start="4">
 <li><p>Scroll to the bottom. The first output is the syntax tree you want to
 implement, from the inner-most functions to the outer-most. So in
 this example, if you want to implement the Adjective “big_A”, you
 need to implement “PositA” first, then “CompAP”, then finally
-“UseComp”. See <a class="reference internal" href="gf-implementation-grammar-engineering-1.html#stage-1"><span class="std std-ref">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</span></a> for
+“UseComp”. See <a class="reference internal" href="../gf-implementation-grammar-engineering-1/#stage-1"><span class="std std-ref">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</span></a> for
 how to implement these functions.</p></li>
 </ol>
-<img alt="../_images/Pastedimage20230113123753.png" src="../_images/Pastedimage20230113123753.png" />
+<img alt="../../_images/Pastedimage20230113123753.png" src="../../_images/Pastedimage20230113123753.png" />
 </section>
 <section id="alternative-2-you-do-not-have-access-to-gf-cloud">
 <h2>Alternative 2: You do not have access to GF Cloud<a class="headerlink" href="#alternative-2-you-do-not-have-access-to-gf-cloud" title="Permalink to this heading">¶</a></h2>
@@ -115,12 +115,12 @@ Synopsis</a>.
 If you lose this link, you can find the RGL Synopsis on the
 <a class="reference external" href="https://www.grammaticalframework.org/">Grammatical Framework
 website</a></p>
-<img alt="../_images/Pastedimage20230113103213.png" src="../_images/Pastedimage20230113103213.png" />
+<img alt="../../_images/Pastedimage20230113103213.png" src="../../_images/Pastedimage20230113103213.png" />
 </li>
 <li><p>Search for the oper you want. In this case, we search for mkNP. The
 below screenshot is a snippet of the different mkNP opers you will
 find</p>
-<img alt="../_images/Pastedimage20230113103050.png" src="../_images/Pastedimage20230113103050.png" />
+<img alt="../../_images/Pastedimage20230113103050.png" src="../../_images/Pastedimage20230113103050.png" />
 </li>
 <li><p>Find the type of mkNP you wish to implement. In our example, we will
 use “Det -&gt; CN -&gt; NP” which is represented with the example “the five
@@ -144,7 +144,7 @@ example phrase given, “the first old man”, is different from the
 previous example “the five old men”. This has no bearing on our
 implementation, though it might confuse you.:</p></li>
 </ol>
-<img alt="../_images/Pastedimage20230113104052.png" src="../_images/Pastedimage20230113104052.png" />
+<img alt="../../_images/Pastedimage20230113104052.png" src="../../_images/Pastedimage20230113104052.png" />
 <ol class="arabic simple" start="7">
 <li><p>Now you have to find where the function is in your Resource Grammar.
 If you don’t know where the function is, you can grep it. In our
@@ -161,7 +161,7 @@ In that case, return to step 6 and search for the function. Consider
 a different function, mkCl. You will have to implement PredVP,
 UseComp and CompAP as they make up the implementation of mkCl :</p></li>
 </ol>
-<img alt="../_images/Pastedimage20230113104702.png" src="../_images/Pastedimage20230113104702.png" />
+<img alt="../../_images/Pastedimage20230113104702.png" src="../../_images/Pastedimage20230113104702.png" />
 </section>
 </section>
 
@@ -172,7 +172,7 @@ UseComp and CompAP as they make up the implementation of mkCl :</p></li>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">GF-docs</a></h1>
+<h1 class="logo"><a href="../../">GF-docs</a></h1>
 
 
 
@@ -189,23 +189,23 @@ UseComp and CompAP as they make up the implementation of mkCl :</p></li>
 <li class="toctree-l2"><a class="reference internal" href="#alternative-2-you-do-not-have-access-to-gf-cloud">Alternative 2: You do not have access to GF Cloud</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="gf-implementation-grammar-engineering-1.html">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gf-implementation-grammar-engineering-2.html">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-grammar-engineering-1/">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gf-implementation-grammar-engineering-2/">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to gf-docs’s documentation!</a></li>
-      <li>Next: <a href="gf-implementation-grammar-engineering-1.html" title="next chapter">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
+  <li><a href="../../">Documentation overview</a><ul>
+      <li>Previous: <a href="../../" title="previous chapter">Welcome to gf-docs’s documentation!</a></li>
+      <li>Next: <a href="../gf-implementation-grammar-engineering-1/" title="next chapter">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search/" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
@@ -232,7 +232,7 @@ UseComp and CompAP as they make up the implementation of mkCl :</p></li>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
-      <a href="../_sources/docs/gf-implementation-getting-started.rst.txt"
+      <a href="../../_sources/docs/gf-implementation-getting-started.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
