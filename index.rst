@@ -10,11 +10,8 @@ Welcome to gf-docs's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   docs/gf-implementation-getting-started.rst
+   docs/gf-implementation-grammar-engineering-1.rst
+   docs/gf-implementation-grammar-engineering-2.rst
 
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
