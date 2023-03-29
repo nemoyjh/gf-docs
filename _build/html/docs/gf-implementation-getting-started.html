@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Implementing a Resource Grammar: First Steps &mdash; Grammatical Framework 1.0 documentation</title>
+  <title>Implementing a Resource Grammar Depth-First: First Steps &mdash; Grammatical Framework 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -41,7 +41,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing a Resource Grammar: First Steps</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing a Resource Grammar Depth-First: First Steps</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#alternative-1-you-have-access-to-gf-cloud">Alternative 1: You have access to GF Cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#alternative-2-you-do-not-have-access-to-gf-cloud">Alternative 2: You do not have access to GF Cloud</a></li>
 </ul>
@@ -64,7 +64,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Implementing a Resource Grammar: First Steps</li>
+      <li class="breadcrumb-item active">Implementing a Resource Grammar Depth-First: First Steps</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/docs/gf-implementation-getting-started.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -74,8 +74,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="implementing-a-resource-grammar-first-steps">
-<h1>Implementing a Resource Grammar: First Steps<a class="headerlink" href="#implementing-a-resource-grammar-first-steps" title="Permalink to this heading"></a></h1>
+  <section id="implementing-a-resource-grammar-depth-first-first-steps">
+<h1>Implementing a Resource Grammar Depth-First: First Steps<a class="headerlink" href="#implementing-a-resource-grammar-depth-first-first-steps" title="Permalink to this heading"></a></h1>
+<p>Here we’re assuming a few prerequisites:
+- You have written some small GF grammars before, or are otherwise familiar with GF syntax and module structure. You know about <code class="docutils literal notranslate"><span class="pre">cat</span></code>, <code class="docutils literal notranslate"><span class="pre">fun</span></code>, <code class="docutils literal notranslate"><span class="pre">lincat</span></code>, <code class="docutils literal notranslate"><span class="pre">lin</span></code> and <code class="docutils literal notranslate"><span class="pre">oper</span></code> definitions, and you know what <code class="docutils literal notranslate"><span class="pre">abstract</span></code>, <code class="docutils literal notranslate"><span class="pre">concrete</span></code> and <code class="docutils literal notranslate"><span class="pre">resource</span></code> modules are. If not, read lessons 1 and 2 of the <a class="reference external" href="http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html">GF tutorial</a> first.
+- You have seen, or perhaps used yourself, the RGL API to implement linearisations. You know what a line like <code class="docutils literal notranslate"><span class="pre">mkCl</span> <span class="pre">(mkNP</span> <span class="pre">i_Pron)</span> <span class="pre">old_A</span></code> means, and when to use it: as a linearisation to some function, e.g. <code class="docutils literal notranslate"><span class="pre">lin</span> <span class="pre">TrueFactAboutMe</span> <span class="pre">=</span> <span class="pre">mkCl</span> <span class="pre">(mkNP</span> <span class="pre">i_Pron)</span> <span class="pre">old_A</span></code>.</p>
+<p>You know these things, and you would like to implement a resource grammar for a new language. To get started, we have a very concrete goal: to implement just enough grammar to be able to linearise the Foods grammar, which was introduced in lesson 2 of the GF tutorial. There is a version implemented using the resource grammar in the <a class="reference external" href="https://github.com/GrammaticalFramework/gf-contrib/blob/master/foods/FoodsI.gf">gf-contrib repository</a>: lexicon aside, the implementation is as follows.</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="nf">lincat</span>
+<span class="w">  </span><span class="kt">Comment</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Utt</span><span class="w"> </span><span class="p">;</span>
+<span class="w">  </span><span class="kt">Item</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">NP</span><span class="w"> </span><span class="p">;</span>
+<span class="w">  </span><span class="kt">Kind</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">CN</span><span class="w"> </span><span class="p">;</span>
+<span class="w">  </span><span class="kt">Quality</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">AP</span><span class="w"> </span><span class="p">;</span>
+<span class="nf">lin</span>
+<span class="w">  </span><span class="kt">Pred</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mkUtt</span><span class="w"> </span><span class="p">(</span><span class="n">mkCl</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="n">quality</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+<span class="w">  </span><span class="kt">This</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mkNP</span><span class="w"> </span><span class="n">this_Det</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">;</span>
+<span class="w">  </span><span class="o">...</span>
+<span class="w">  </span><span class="kt">Mod</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mkCN</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">;</span>
+<span class="w">  </span><span class="kt">Very</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mkAP</span><span class="w"> </span><span class="n">very_AdA</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="p">;</span>
+</pre></div>
+</div>
+<p>We want to make a fully functional subset of the RGL, so that we can plug in our grammar (for example, Tamil) just like this:</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="nf">concrete</span><span class="w"> </span><span class="kt">FoodsTam</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="kt">Foods</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="kt">SyntaxTam</span><span class="p">,</span><span class="w"> </span><span class="kt">ParadigmsTam</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="p">{</span>
+
+<span class="nf">lincat</span>
+<span class="w">  </span><span class="kt">Comment</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Utt</span><span class="w"> </span><span class="p">;</span>
+<span class="w">  </span><span class="kt">Item</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">NP</span><span class="w"> </span><span class="p">;</span>
+<span class="w">  </span><span class="kt">Kind</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">CN</span><span class="w"> </span><span class="p">;</span>
+<span class="w">  </span><span class="kt">Quality</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">AP</span><span class="w"> </span><span class="p">;</span>
+<span class="w"> </span><span class="n">lin</span>
+<span class="w">   </span><span class="kt">Pred</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mkUtt</span><span class="w"> </span><span class="p">(</span><span class="n">mkCl</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="n">quality</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+<span class="w">   </span><span class="kt">This</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mkNP</span><span class="w"> </span><span class="n">this_Det</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">;</span>
+<span class="w">   </span><span class="o">...</span>
+<span class="w">   </span><span class="kt">Mod</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mkCN</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">;</span>
+<span class="w">   </span><span class="kt">Very</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mkAP</span><span class="w"> </span><span class="n">very_AdA</span><span class="w"> </span><span class="n">quality</span><span class="w"> </span><span class="p">;</span>
+
+<span class="w">   </span><span class="kt">Pizza</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mkN</span><span class="w"> </span><span class="s">&quot;பீத்சா&quot;</span><span class="w"> </span><span class="p">;</span>
+<span class="w">   </span><span class="o">...</span>
+</pre></div>
+</div>
+<p>After we’re done with the exercise, all the infrastructure is in place, but a lot of grammatical structures is still missing. So if you tried to use the new language to implement another application grammar, it would <em>compile</em>, but not <em>linearise</em>. But the good news is that once you’re past the initial hurdle of getting all the modules working, the rest is just grammar engineering. And that’s fun!</p>
+<blockquote>
+<div><p>Note that this approach is not for everyone. Jumping right to the full resource grammar can be overwhelming; in that case, you could try a <a class="reference external" href="https://github.com/GrammaticalFramework/gf-contrib/blob/master/mini/newmini/MiniGrammar.gf">mini resource grammar</a> instead. But that will be the topic of another tutorial—this one is for you if you want to jump right in to the full RGL.</p>
+</div></blockquote>
 <section id="alternative-1-you-have-access-to-gf-cloud">
 <h2>Alternative 1: You have access to GF Cloud<a class="headerlink" href="#alternative-1-you-have-access-to-gf-cloud" title="Permalink to this heading"></a></h2>
 <ol class="arabic simple">

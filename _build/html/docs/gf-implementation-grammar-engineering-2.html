@@ -40,10 +40,34 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="gf-implementation-getting-started.html">ALTERNATIVE 1: HAVE ACCESS TO GF CLOUD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gf-implementation-getting-started.html#alternative-2-no-access-to-gf-cloud">ALTERNATIVE 2: NO ACCESS TO GF CLOUD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gf-implementation-getting-started.html">Implementing a Resource Grammar Depth-First: First Steps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gf-implementation-grammar-engineering-1.html">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#steps">Steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initial-hypothesis">Initial Hypothesis:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#predicative-and-attributive-adjectives">Predicative and Attributive adjectives</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#putting-predicative-and-attributive-adjectives-into-gf">Putting Predicative and Attributive adjectives into GF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-the-initial-hypothesis">Modifying the Initial Hypothesis:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-a-smart-paradigm-for-tamil-adjectives">Defining a smart paradigm for Tamil Adjectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exporting-the-paradigms-into-the-external-api">Exporting the paradigms into the external API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#appendix-a-explanation-of-smart-paradigms">Appendix A: Explanation of Smart Paradigms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#declaration-of-the-smart-paradigm-in-paradigmstam-gf">Declaration of the smart paradigm in ParadigmsTam.gf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#definition-of-the-smart-paradigm-in-paradigmstam-gf">Definition of the smart paradigm in ParadigmsTam.gf</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-smart-paradigms">Using the smart paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#appendix-b-note-on-the-structure-of-paradigmslang-gf">Appendix B: Note on the structure of ParadigmsLang.gf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#declarations">Declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#definitions">Definitions</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -72,15 +96,275 @@
              
   <section id="implementing-a-resource-grammar-stage-2-making-foods-grammar-grammatical">
 <h1>Implementing a Resource Grammar: Stage 2, Making Foods Grammar Grammatical<a class="headerlink" href="#implementing-a-resource-grammar-stage-2-making-foods-grammar-grammatical" title="Permalink to this heading"></a></h1>
-<p>In <a class="reference internal" href="gf-implementation-grammar-engineering-1.html#stage-1"><span class="std std-ref">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</span></a> Grammar Engineering naive Foods Grammar, we implemented the
+<p>In <a class="reference internal" href="gf-implementation-grammar-engineering-1.html#stage-1"><span class="std std-ref">Implementing a Resource Grammar: Stage 1, A Naive Foods Grammar</span></a>, we implemented the
 cats and funs required to implement a naive Foods Grammar that outputs
 only strings.</p>
-<p>STAGE 2:</p>
-<p>We want to build in inflection tables. In Tamil, we want to implement
+<p>In stage 2, we want to build inflection tables. In Tamil, we want to implement
 the inflection table of 2 forms for adjectives, even though there are
-more than 2 forms. Remember, at this stage, we want a minimally
-implemented grammar that can print out correct sentences.</p>
-<p>This is work in progress as of January 2023.</p>
+more than 2 forms.</p>
+<p>Remember, at this stage, we want a minimally implemented grammar that
+can print out correct sentences</p>
+<p>For foods grammar we need to work on Predication (this pizza is warm)
+and Modification (this warm pizza).</p>
+<section id="steps">
+<h2>Steps<a class="headerlink" href="#steps" title="Permalink to this heading"></a></h2>
+<p>First, we work via an initial hypothesis and refine that down. Again, I
+will be using Tamil as an example.</p>
+<section id="initial-hypothesis">
+<h3>Initial Hypothesis:<a class="headerlink" href="#initial-hypothesis" title="Permalink to this heading"></a></h3>
+<p>Quicly referring to “A Grammar of Modern Tamil, 1993, Thomas Lehmann”,
+pages 133 and 134, the grammar shows that there’s a ‘simple’ adjective
+and a more complex ‘derived’ adjective.</p>
+<p>Simple adjectives are adjectives that are not derived from other word
+categories. In the example below, we use the word “warm”.</p>
+<p>Derived adjectives are adjectives derived from other words, like nouns.
+In the example below, we use the word “beautiful”.</p>
+<section id="predicative-and-attributive-adjectives">
+<h4>Predicative and Attributive adjectives<a class="headerlink" href="#predicative-and-attributive-adjectives" title="Permalink to this heading"></a></h4>
+<section id="attributive-adjectives">
+<h5>Attributive adjectives<a class="headerlink" href="#attributive-adjectives" title="Permalink to this heading"></a></h5>
+<p>Attributive adjectives modify a noun. For example,</p>
+<p>“This warm pizza”.</p>
+<p>This is the same in Tamil.</p>
+<p>“This warm pizza” (Tamil: Inta sudaana pizza). Inta = This; sudaana =
+Warm</p>
+</section>
+<section id="predicative-adjectives">
+<h5>Predicative adjectives<a class="headerlink" href="#predicative-adjectives" title="Permalink to this heading"></a></h5>
+<p>Predicative adjectives are adjectives that describe a noun. For example,</p>
+<p>“This pizza is warm”.</p>
+<p>In Tamil, we might say,</p>
+<p>“This pizza is a warm one” (Tamil: Inta pizza sudaanan). Inta = This;
+Sudaanan = Warm with 3rd person singular masculine</p>
+<p>In Tamil, predicative adjectives have to be pro-nominalised and are
+placed at the end of the word.</p>
+</section>
+</section>
+</section>
+<section id="putting-predicative-and-attributive-adjectives-into-gf">
+<h3>Putting Predicative and Attributive adjectives into GF<a class="headerlink" href="#putting-predicative-and-attributive-adjectives-into-gf" title="Permalink to this heading"></a></h3>
+<p>We write a series of params (in ParamLang.gf) and oper (ResLang.gf).</p>
+<p>Param: AType, AForm, Position, Gender</p>
+<p>Oper: table of inflection for warm_A and beautiful_A.</p>
+<p>We decide based off initial speculation that both predicative and
+attributive adjectives inflect on gender (Masculine and Feminine).</p>
+<p>For this example, we place both param and oper into one file for
+simplicity sake. Note that the param and oper lines were not captured in
+this screenshot.</p>
+<img alt="../_images/Pastedimage20230321122840.png" src="../_images/Pastedimage20230321122840.png" />
+<img alt="../_images/Pastedimage20230321122812.png" src="../_images/Pastedimage20230321122812.png" />
+</section>
+</section>
+<section id="modifying-the-initial-hypothesis">
+<h2>Modifying the Initial Hypothesis:<a class="headerlink" href="#modifying-the-initial-hypothesis" title="Permalink to this heading"></a></h2>
+<p>Notice that Attributive does not inflect on gender.</p>
+<p>Now we reduce the number of params down in ParamLang.gf.</p>
+<img alt="../_images/Pastedimage20230324113325.png" src="../_images/Pastedimage20230324113325.png" />
+<p>We also define the adjective and create a smart paradigm.</p>
+<p>This is the first time we define a smart paradigm. If you need an
+explanation of what a smart paradigm is, refer to Appendix A of this
+document.</p>
+</section>
+<section id="defining-a-smart-paradigm-for-tamil-adjectives">
+<h2>Defining a smart paradigm for Tamil Adjectives<a class="headerlink" href="#defining-a-smart-paradigm-for-tamil-adjectives" title="Permalink to this heading"></a></h2>
+<p>To define a smart paradigm, we define two things:</p>
+<ol class="arabic simple">
+<li><p>The paradigms for words that follow known rules</p></li>
+<li><p>The worst-case paradigm for when all other paradigm rules fail</p></li>
+</ol>
+<img alt="../_images/Pastedimage20230324130711.png" src="../_images/Pastedimage20230324130711.png" />
+<ol class="arabic">
+<li><p>In lines 206-210, we define the adjective as a function from an
+Adjectival Form (AForm) to a String. Recall that AForm is defined in
+ParamLang.gf.</p></li>
+<li><p>In lines 213-219, we define the worst-case scenario. If the word you
+are defining doesn’t match the other inflection table rules, you can
+manually define how this word is inflected using this paradigm.</p>
+<p>We use a function to define the three types of AForm strings into an
+adjective. These three strings are the parameters defined in
+ParamLang.gf. We then define a table that maps the description
+“Predicative Masc, Predicative Fem, Attributive” to the corresponding
+strings. The purpose of this function is to put words in the right
+place in the inflection table.</p>
+</li>
+<li><p>Note that definition-wise, Lines 213-219 are the same as lines
+222-230.</p></li>
+<li><p>Lines 233-249 creates the inflection table for words ending in “a” in
+Tamil by adding “an” and “al” to the word. We use Haskell’s “Let and
+in” way of definiton to populate this paradigm. “Let” allows for the
+definition of the variables “sudaanaan” and “sudaanaal” to be used
+“in” “mkAdj”, which populates the table with the non-inflected
+Attributive form, the Predicative Masculine form, and the Predicative
+Feminine form.</p></li>
+</ol>
+</section>
+<section id="exporting-the-paradigms-into-the-external-api">
+<h2>Exporting the paradigms into the external API<a class="headerlink" href="#exporting-the-paradigms-into-the-external-api" title="Permalink to this heading"></a></h2>
+<p>ParadigmsLang.gf exports the smart paradigms in ResLang.gf into the
+external API.</p>
+<p>In our example, we go to ParadigmsTam.gf.</p>
+</section>
+<section id="appendix-a-explanation-of-smart-paradigms">
+<h2>Appendix A: Explanation of Smart Paradigms<a class="headerlink" href="#appendix-a-explanation-of-smart-paradigms" title="Permalink to this heading"></a></h2>
+<p>A paradigm is a function from a word to an inflection table.</p>
+<p>Note: At this stage, we are creating the inflection table, meaning that
+we are simply populating the table with the appropriate word forms. This
+means we are not yet using the inflection table.</p>
+<p>Let’s look at what a non-smart, or dumb, paradigm is, using simplified
+examples from Finnish.</p>
+<p>This is an inflection table, using the Finnish word “Koira”</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Inflection</span> <span class="n">table</span> <span class="mi">1</span> <span class="n">that</span> <span class="n">takes</span> <span class="n">words</span> <span class="n">ending</span> <span class="ow">in</span> <span class="s1">&#39;a&#39;</span> <span class="ow">and</span> <span class="n">outputs</span> <span class="n">an</span> <span class="n">inflection</span> <span class="n">table</span>
+
+<span class="n">Sg</span> <span class="n">Nom</span> <span class="o">=&gt;</span> <span class="n">koira</span>
+<span class="n">Sg</span> <span class="n">Gen</span> <span class="o">=&gt;</span> <span class="n">koiran</span> <span class="p">(</span><span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;glues the letter &#39;n&#39; at the end of the word&quot;</span><span class="p">)</span>
+<span class="n">Sg</span> <span class="n">Par</span> <span class="o">=&gt;</span> <span class="n">koiraa</span>
+<span class="n">Sg</span> <span class="n">Ill</span> <span class="o">=&gt;</span> <span class="n">koiraan</span>
+</pre></div>
+</div>
+<p>And this is another inflection table, using the Finnish word “Hame”.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Inflection</span> <span class="n">table</span> <span class="mi">2</span> <span class="n">that</span> <span class="n">takes</span> <span class="n">words</span> <span class="n">ending</span> <span class="ow">in</span> <span class="s1">&#39;e&#39;</span> <span class="ow">and</span> <span class="n">outputs</span> <span class="n">an</span> <span class="n">inflection</span> <span class="n">table</span>
+
+<span class="n">Sg</span> <span class="n">Nom</span> <span class="o">=&gt;</span> <span class="n">hame</span>
+<span class="n">Sg</span> <span class="n">Gen</span> <span class="o">=&gt;</span> <span class="n">hameen</span> <span class="p">(</span><span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;Duplicates final vowel and glues the letter &#39;n&#39; at the end of the word&quot;</span><span class="p">)</span>
+<span class="n">Sg</span> <span class="n">Par</span> <span class="o">=&gt;</span> <span class="n">hametta</span>
+<span class="n">Sg</span> <span class="n">Ill</span> <span class="o">=&gt;</span> <span class="n">hameeseen</span>
+</pre></div>
+</div>
+<p>Do not worry if you don’t know what some of these forms are (e.g. Ill
+for Illiative). The important points to take note here is that “Hame”
+ends in ‘e’ and “Koira” ends in ‘a’.</p>
+<p>In our simplified example, words that end in ‘a’ take the first
+inflection table, while words that end in ‘e’ take the second inflection
+table. “Koira” should not be inflected using inflection table 2, and
+“Hame” should not be inflected using inflection table 1: The results
+would be wrong.</p>
+<p>However, in a dumb paradigm, you can do just that: You can stick any
+word that ends in “a” in inflection table 2, and stick any word that
+ends in “e” in inflection table 1.</p>
+<p>Taking the word “Hame” and wrongly sticking it into inflection table 1
+gives the wrong output of “Hamen” as the second argument.</p>
+<p>This is because the dumb paradigm simply follows the rule “glue the
+letter ‘n’ to the end of the word” for any input.</p>
+<p>A smart paradigm would not allow “Hame” as input into inflection table
+1.</p>
+<p>Instead, a smart paradigm matches the argument (input) “Hame” with the
+best matching inflection table.</p>
+<p>So in this simplified example, the program would see that “Hame” pattern
+matches with the rule “Words that end in ‘e’ uses inflection table 2”,
+and give errors if you try and force “Hame” into inflection table 1.</p>
+<p>ParadigmsLang.gf exports the smart paradigms in ResLang.gf into the
+external API. See Appendix B below for more information on
+ParadigmsLang.gf</p>
+<p>We need a declaration and a definition.</p>
+<section id="declaration-of-the-smart-paradigm-in-paradigmstam-gf">
+<h3>Declaration of the smart paradigm in ParadigmsTam.gf<a class="headerlink" href="#declaration-of-the-smart-paradigm-in-paradigmstam-gf" title="Permalink to this heading"></a></h3>
+<img alt="../_images/Pastedimage20230324133122.png" src="../_images/Pastedimage20230324133122.png" />
+</section>
+<section id="definition-of-the-smart-paradigm-in-paradigmstam-gf">
+<h3>Definition of the smart paradigm in ParadigmsTam.gf<a class="headerlink" href="#definition-of-the-smart-paradigm-in-paradigmstam-gf" title="Permalink to this heading"></a></h3>
+<img alt="../_images/Pastedimage20230324133219.png" src="../_images/Pastedimage20230324133219.png" />
+</section>
+</section>
+<section id="using-the-smart-paradigms">
+<h2>Using the smart paradigms<a class="headerlink" href="#using-the-smart-paradigms" title="Permalink to this heading"></a></h2>
+<p>We can now use these smart paradigms when we’re creating other
+categories like Common Nouns (CN) and Adjectival Phrases (AP).</p>
+<p>We will be using Record Syntax in these definitions. Record syntax can
+be used to…</p>
+<ol class="arabic simple">
+<li><p>Change a field that already exists in a category</p></li>
+<li><p>Extend a field via creation that doesn’t exist in a category</p></li>
+</ol>
+<p>Take the following function “AdjCN” as an example, found in NounTam.gf</p>
+<img alt="../_images/Pastedimage20230324134927.png" src="../_images/Pastedimage20230324134927.png" />
+<p>This function AdjCN takes two arguments ‘AP’ and “CN’ and outputs a
+‘CN’.</p>
+<p>(As an aside, this type of function is an endofunction as its output is
+the same as one of its inputs.)</p>
+<p>This takes the common noun and uses record syntax to change one of its
+fields, in this case the ‘s’ (string) field, with a new definition.</p>
+<p>For the adjectival phrase argument ‘ap’, we choose, via the exlamation
+mark ‘!’, the Attributive param. We then</p>
+<p>For the common noun, we use the sugared syntax form for a table
+definition, via two backslashes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>\\<span class="n">nf</span><span class="p">,</span><span class="n">c</span> <span class="o">=&gt;</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>nf refers to the noun form, and c refers to case.</p>
+<p>We then choose the ‘correct’ form via nf and c.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading"></a></h2>
+<p>This concludes our tutorial on making the Foods Grammar more
+grammatically correct compared to part 1.</p>
+<p>We have explored the use of smart paradigms, record syntax, tables, and
+overloading.</p>
+</section>
+<section id="appendix-b-note-on-the-structure-of-paradigmslang-gf">
+<h2>Appendix B: Note on the structure of ParadigmsLang.gf<a class="headerlink" href="#appendix-b-note-on-the-structure-of-paradigmslang-gf" title="Permalink to this heading"></a></h2>
+<p>ParadigmsLang.gf is the only location where we split the declaration of
+the function and the definition of the function into two different parts
+of the program.</p>
+<p>By convention, declarations are defined above the line ‘–.’, and
+definitions are defined below the line ‘–.’</p>
+<section id="declarations">
+<h3>Declarations<a class="headerlink" href="#declarations" title="Permalink to this heading"></a></h3>
+<p>Declarations are automatically turned into the GF documentation in the
+<a class="reference external" href="http://www.grammaticalframework.org/lib/doc/synopsis/index.html">RGL
+Synopsis</a>,
+like the example below.</p>
+<img alt="../_images/Pastedimage20230324133903.png" src="../_images/Pastedimage20230324133903.png" />
+<p>Focus on the mkN functions. This mkN function is overloaded. The code
+for these mkN definitions would look something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkN</span> <span class="p">:</span> <span class="n">overload</span> <span class="p">{</span>
+  <span class="n">mkN</span> <span class="p">:</span> <span class="p">(</span><span class="n">flash</span> <span class="p">:</span> <span class="n">Str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">N</span> <span class="p">;</span> <span class="o">--</span> <span class="n">plural</span> <span class="n">s</span><span class="p">,</span> <span class="n">incl</span><span class="o">.</span> <span class="n">flashes</span><span class="o">-</span><span class="n">flashes</span><span class="p">,</span> <span class="n">fly</span><span class="o">-</span><span class="n">flies</span>
+  <span class="n">mkN</span> <span class="p">:</span> <span class="p">(</span><span class="n">man</span><span class="p">,</span><span class="n">men</span> <span class="p">:</span> <span class="n">Str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">N</span> <span class="p">;</span> <span class="o">--</span> <span class="n">irregular</span> <span class="n">plural</span>
+  <span class="n">mkN</span> <span class="p">:</span> <span class="p">(</span><span class="n">man</span><span class="p">,</span><span class="n">men</span><span class="p">,</span><span class="n">man</span><span class="s1">&#39;s,men&#39;</span><span class="n">s</span> <span class="p">:</span> <span class="n">Str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">N</span> <span class="p">;</span> <span class="o">--</span> <span class="n">irregular</span> <span class="n">genetives</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Notice the following:</p>
+<ol class="arabic simple">
+<li><p>Declarations are defined by a colon ‘:’ and start with the function
+that will be called by the user of the external API, in this case
+“mkN”. These are the names of the RGL Synopsis, “Function”.</p></li>
+<li><p>These are then followed by the individual Type definitions, also
+declared by a colon followed by the Type definitions. This populates
+the second column of the RGL Synopsis, “Type”.</p></li>
+<li><p>Finally, the comments that follow the declarations are turned into
+examples in the third column of the RGL Synopsis, “Example”. Note
+that comments should have a space after the two dashes that comments
+begin with (meaning “– example”, which is correct, compared to
+“–example”, which is wrong.)</p></li>
+</ol>
+</section>
+<section id="definitions">
+<h3>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading"></a></h3>
+<p>The mkN definitions could look like the following (this doesn’t follow
+the ParadigmsEng.gf properly, it’s for pedagogical purposes).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkN</span> <span class="o">=</span> <span class="n">overload</span> <span class="p">{</span>
+  <span class="n">mkN</span> <span class="p">:</span> <span class="p">(</span><span class="n">flash</span> <span class="p">:</span> <span class="n">Str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">N</span> <span class="o">=</span> \<span class="n">flash</span> <span class="o">-&gt;</span> <span class="n">lin</span> <span class="n">N</span> <span class="p">(</span><span class="n">regN</span> <span class="n">flash</span><span class="p">)</span> <span class="p">;</span>
+  <span class="n">mkN</span> <span class="p">:</span> <span class="p">(</span><span class="n">man</span><span class="p">,</span><span class="n">men</span> <span class="p">:</span> <span class="n">Str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">N</span> <span class="o">=</span> \<span class="n">man</span><span class="p">,</span><span class="n">men</span> <span class="o">-&gt;</span>
+    <span class="n">lin</span> <span class="n">N</span> <span class="p">(</span><span class="n">slightlyIrregN</span> <span class="n">man</span> <span class="n">men</span><span class="p">)</span> <span class="p">;</span>
+  <span class="n">mkN</span> <span class="p">:</span> <span class="p">(</span><span class="n">man</span><span class="p">,</span><span class="n">men</span><span class="p">,</span><span class="n">man</span><span class="s1">&#39;s,men&#39;</span><span class="n">s</span> <span class="p">:</span> <span class="n">Str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">N</span> <span class="o">=</span> \<span class="n">man</span><span class="p">,</span><span class="n">men</span><span class="p">,</span><span class="n">man</span><span class="s1">&#39;s,men&#39;</span><span class="n">s</span> <span class="o">-&gt;</span>
+    <span class="n">lin</span> <span class="n">N</span> <span class="p">(</span><span class="n">totallyIrregN</span> <span class="n">man</span> <span class="n">men</span> <span class="n">man</span><span class="s1">&#39;s men&#39;</span><span class="n">s</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Definitions for the mkN examples above are defined by an equals sign
+‘=’ and also start with the function that will be called by the user
+of the external API, “mkN”.</p></li>
+<li><p>The overloaded definition is then followed by a
+declaration-definition pair, where the declaration is the Type
+definition and the definition that follows the equals sign. The
+definition is a function from the Types into a linearisation of the
+output type, in this case, “N”. The arguments use the paradigms
+defined in ResLang.gf.</p></li>
+</ol>
+</section>
+</section>
 </section>
 
 
