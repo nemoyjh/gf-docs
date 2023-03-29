@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'gf-docs'
+project = 'GF-docs'
 copyright = '2023, Nemo'
 author = 'Nemo'
 release = '1'
@@ -17,7 +17,7 @@ release = '1'
 extensions = []
 
 templates_path = ['_templates']
-exclude_patterns = ['Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 
 
